@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SnapChart — Spot the Setup. Seize the Trade.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/static/css/snapchart.css" />
+</head>
+<body>
+  <!-- Subtle background chart canvas -->
+  <canvas id="bg-chart" class="bg-chart"></canvas>
+  <div class="vignette"></div>
+
+  <div class="app">
+    <!-- Header -->
+    <header class="header">
+      <div class="logo">
+        <span class="logo-mark">S▰</span>
+        <div class="logo-text">
+          <span class="logo-snap">SNAP</span><span class="logo-chart">CHART</span>
+        </div>
+      </div>
+      <div class="header-sub">Market Intelligence</div>
+      <div class="header-right">
+        <button id="btn-refresh" class="btn-ghost" title="Rescan markets">↻ Rescan</button>
+        <div class="status-pill">
+          <span class="pulse-dot"></span>
+          LIVE
+        </div>
+      </div>
+    </header>
+
+    <!-- Market Scan Summary -->
+    <section class="scan-summary glass">
+      <div class="scan-label">MARKET SCAN</div>
+      <div class="scan-stats">
+        <div class="stat">
+          <span class="stat-value" id="pairs-count">—</span>
+          <span class="stat-label">pairs analysed</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat">
+          <span class="stat-value accent" id="setups-count">—</span>
+          <span class="stat-label">setups detected</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat">
+          <span class="stat-value" id="scan-time">—</span>
+          <span class="stat-label">last scan</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Setup Cards Grid -->
+    <section class="cards-grid" id="cards-grid">
+      <!-- Cards injected by JS -->
+    </section>
+
+    <!-- Detail Panel (shown when a valid setup is selected) -->
+    <section class="detail-panel glass hidden" id="detail-panel">
+      <div class="detail-header">
+        <div>
+          <h2 id="detail-pair">EURUSD</h2>
+          <div class="detail-direction" id="detail-direction">BUY</div>
+        </div>
+        <button class="btn-close" id="btn-close-detail">✕</button>
+      </div>
+
+      <div class="quality-row">
+        <div class="quality-block">
+          <div class="quality-label">Setup Quality</div>
+          <div class="quality-score" id="detail-quality">87<span>/100</span></div>
+        </div>
+        <div class="quality-block">
+          <div class="quality-label">Strategy DNA</div>
+          <div class="quality-score dna" id="detail-dna">78<span>%</span></div>
+        </div>
+      </div>
+
+      <div class="levels-grid">
+        <div class="level-card">
+          <span class="level-label">Entry</span>
+          <span class="level-value mono" id="detail-entry">—</span>
+        </div>
+        <div class="level-card">
+          <span class="level-label">Stop Loss</span>
+          <span class="level-value mono sell" id="detail-sl">—</span>
+        </div>
+        <div class="level-card">
+          <span class="level-label">Take Profit</span>
+          <span class="level-value mono buy" id="detail-tp">—</span>
+        </div>
+        <div class="level-card">
+          <span class="level-label">Risk : Reward</span>
+          <span class="level-value mono" id="detail-rr">—</span>
+        </div>
+      </div>
+
+      <div class="hold-estimate">
+        <span class="hold-label">Estimated Holding Time</span>
+        <span class="hold-value" id="detail-hold">2–5 hours</span>
+      </div>
+
+      <!-- Why This Trade -->
+      <div class="why-section">
+        <button class="btn-why" id="btn-why">WHY THIS TRADE?</button>
+        <div class="why-content hidden" id="why-content">
+          <ul id="why-list"></ul>
+          <div class="warnings" id="why-warnings"></div>
+        </div>
+      </div>
+
+      <!-- Risk Calculator -->
+      <div class="risk-section">
+        <div class="risk-title">Position Size Calculator</div>
+        <div class="risk-inputs">
+          <div class="input-group">
+            <label>Account Balance ($)</label>
+            <input type="number" id="risk-balance" value="1000" min="50" step="50" />
+          </div>
+          <div class="input-group">
+            <label>Risk per Trade (%)</label>
+            <input type="number" id="risk-pct" value="0.5" min="0.1" max="2" step="0.1" />
+          </div>
+        </div>
+        <button class="btn-primary" id="btn-calc-size">Calculate Lot Size</button>
+        <div class="risk-result hidden" id="risk-result">
+          <span>Recommended lot size:</span>
+          <strong id="rec-lots">0.00</strong>
+          <span class="risk-amount">Risking $<span id="rec-risk">0</span></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <p>TRBP-60 Strategy Engine · Educational use only · Not financial advice</p>
+      <p class="disclaimer">Past performance does not guarantee future results. Trading involves substantial risk of loss.</p>
+    </footer>
+  </div>
+
+  <script src="/static/js/dashboard.js"></script>
+</body>
+</html>
